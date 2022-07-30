@@ -52,7 +52,7 @@ Output:
 
 ## Syntax
 
-I chose the standard code block marker <code>```yaml</code> as the default marker in order to get a nice editor preview for authors and not introduce a new Markdown syntax. It can be changed in the options.
+I chose the standard code block marker <code>```yaml</code> as the default marker in order to get nice editing and preview for authors and not introduce a new Markdown syntax. It can be changed in the options.
 
 By appending some other word after <code>```yaml</code> you can disable this plugin for a specific YAML code block:
 

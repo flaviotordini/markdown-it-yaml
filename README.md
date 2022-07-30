@@ -23,7 +23,7 @@ Example input:
 
 Since `type` is `image`, a mustache template named `image.html` must be created in your template directory.
 
-The template directory defaults to the directory of the Markdown file being processed. You can change it in the options.
+The template directory defaults to the current working directory. You should set it in the options.
 
 A Mustache template would look like:
 
@@ -85,7 +85,7 @@ const md = require('markdown-it')();
 
 md.use(require('markdown-it-yaml'), {
   // optional, these are the defaults
-  templateDir: '.', // this actually defaults to the md file directory
+  templateDir: '.',
   markerStart: '```yaml',
   markerEnd: '```',
   typeKey: 'type',

@@ -69,7 +69,7 @@ const plugin = (md, options) => {
         const data = jsYaml.load(yaml, 'utf8');
         log('data:', data);
 
-        const templatePath = options.templateDir + path.delimiter + data[options.typeKey] + options.templateExtension;
+        const templatePath = options.templateDir + path.sep + data[options.typeKey] + options.templateExtension;
         const template = fs.readFileSync(templatePath, 'utf8');
         const html = mustache.render(template, data);
         log('html:', html);

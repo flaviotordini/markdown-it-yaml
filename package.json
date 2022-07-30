@@ -1,0 +1,30 @@
+{
+  "name": "markdown-it-yaml",
+  "version": "1.0.0",
+  "description": "Insert YAML documents inside Markdown and have them render to HTML using Mustache templates",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flaviotordini/markdown-it-yaml.git"
+  },
+  "keywords": [
+    "markdown-it-plugin",
+    "markdown-it",
+    "markdown",
+    "yaml",
+    "mustache"
+  ],
+  "author": "Flavio Tordini",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flaviotordini/markdown-it-yaml/issues"
+  },
+  "homepage": "https://github.com/flaviotordini/markdown-it-yaml#readme",
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "mustache": "^4.2.0"
+  }
+}

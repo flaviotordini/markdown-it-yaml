@@ -5,7 +5,7 @@ const mustache = require('mustache');
 
 const tokenType = 'yaml';
 
-const plugin = (md, options) => {
+function plugin(md, options) {
     const defaultOptions = {
         templateDir: '.',
         markerStart: '```yaml',
@@ -14,6 +14,7 @@ const plugin = (md, options) => {
         templateExtension: '.html',
         autoNumbering: false,
         numberKey: 'number',
+        renderFunction: mustacheRender,
         debug: false
     };
 
@@ -28,6 +29,7 @@ const plugin = (md, options) => {
             ...options
         };
     }
+    this.options = options;
 
     function log(...args) {
         if (options.debug) console.log('[markdown-it-yaml]', ...args);
@@ -71,10 +73,6 @@ const plugin = (md, options) => {
         const data = jsYaml.load(yaml, 'utf8');
         log('data:', data);
 
-        const templatePath = options.templateDir + path.sep + data[options.typeKey] + options.templateExtension;
-        const template = fs.readFileSync(templatePath, 'utf8');
-        const html = mustache.render(template, data);
-        log('html:', html);
         const typeName = data[options.typeKey];
         if (typeof typeName === 'undefined') {
             return false;
@@ -92,7 +90,7 @@ const plugin = (md, options) => {
 
         state.line = nextLine + 1;
         const token = state.push(tokenType, 'div', 0);
-        token.content = html;
+        token.content = data;
         token.markup = options.markerStart;
         token.map = [startLine, state.line];
         token.block = true;
@@ -102,11 +100,22 @@ const plugin = (md, options) => {
 
     md.block.ruler.before('fence', tokenType, rule, { alt: [] });
 
+    function mustacheRender(template, data) {
+        return mustache.render(template, data);
+    }
 
-    md.renderer.rules[tokenType] = (tokens, idx, options, env, slf) => {
+    function render(tokens, idx, options, env, slf) {
         const token = tokens[idx];
-        return token.content;
-    };
+        const data = token.content;
+        data.env = env;
+        const pluginOptions = plugin.options;
+        const typeName = data[pluginOptions.typeKey];
+        const templatePath = pluginOptions.templateDir + path.sep + typeName + pluginOptions.templateExtension;
+        const template = fs.readFileSync(templatePath, 'utf8');
+        return pluginOptions.renderFunction(template, data);
+    }
+
+    md.renderer.rules[tokenType] = render;
 
 }
 

@@ -73,6 +73,10 @@ const plugin = (md, options) => {
         const template = fs.readFileSync(templatePath, 'utf8');
         const html = mustache.render(template, data);
         log('html:', html);
+        const typeName = data[options.typeKey];
+        if (typeof typeName === 'undefined') {
+            return false;
+        }
 
         if (typeof state.env.objects === 'undefined') state.env.objects = [];
         state.env.objects.push(data);

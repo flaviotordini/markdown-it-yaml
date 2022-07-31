@@ -12,6 +12,8 @@ const plugin = (md, options) => {
         markerEnd: '```',
         typeKey: 'type',
         templateExtension: '.html',
+        autoNumbering: false,
+        numberKey: 'number',
         debug: false
     };
 
@@ -80,6 +82,13 @@ const plugin = (md, options) => {
 
         if (typeof state.env.objects === 'undefined') state.env.objects = [];
         state.env.objects.push(data);
+
+        if (options.autoNumbering) {
+            if (typeof state.env._autoNumbers === 'undefined') state.env._autoNumbers = new Map();
+            const number = state.env._autoNumbers.get(typeName) + 1 || 1;
+            data[options.numberKey] = number;
+            state.env._autoNumbers.set(typeName, number);
+        }
 
         state.line = nextLine + 1;
         const token = state.push(tokenType, 'div', 0);

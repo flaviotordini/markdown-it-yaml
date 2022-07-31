@@ -72,12 +72,6 @@ Coming soon
 $ npm install markdown-it-yaml
 ```
 
-## Support
-
-I'll approve pull requests that are easy to understand. Feel free to open and I'll give my feedback.
-
-If you need some extra features, I'm available for hire.
-
 ## Usage
 
 ```js
@@ -98,6 +92,12 @@ for (const obj of md.objects) {
   console.log(obj);
 }
 ```
+
+## Support
+
+I'll approve pull requests that are easy to understand. Feel free to open and I'll give my feedback.
+
+If you need extra features, I'm available for hire.
 
 ## License
 

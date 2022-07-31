@@ -87,6 +87,9 @@ md.use(require('markdown-it-yaml'), {
   debug: false
 });
 
+const markdown = 'Load your Markdown from somewhere...';
+const html = md.render(markdown);
+
 // Access the parsed YAML objects
 for (const obj of md.objects) {
   console.log(obj);

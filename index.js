@@ -68,6 +68,7 @@ const plugin = (md, options) => {
 
         const data = jsYaml.load(yaml, 'utf8');
         log('data:', data);
+        md.objects.push(data);
 
         const templatePath = options.templateDir + path.sep + data[options.typeKey] + options.templateExtension;
         const template = fs.readFileSync(templatePath, 'utf8');
@@ -85,6 +86,11 @@ const plugin = (md, options) => {
     };
 
     md.block.ruler.before('fence', tokenType, rule, { alt: [] });
+
+    md.core.ruler.before('normalize', 'reset_' + tokenType, (state) => {
+        log('Resetting objects');
+        state.md.objects = [];
+    });
 
     md.renderer.rules[tokenType] = (tokens, idx, options, env, slf) => {
         const token = tokens[idx];

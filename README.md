@@ -62,7 +62,7 @@ By appending some other word after <code>```yaml</code> you can disable this plu
 
 ## Object list
 
-TODO
+An array of the parsed YAML blocks can be accessed at `md.objects` after the Markdown document has been processed. This can be useful to generate table of contents, statistics, export data, etc. See the Usage example below.
 
 ## Install
 
@@ -93,9 +93,9 @@ md.use(require('markdown-it-yaml'), {
   debug: false
 });
 
-// TODO access the parsed YAML documents
-for (const doc of md.documents) {
-  console.log(doc);
+// Access the parsed YAML objects
+for (const obj of md.objects) {
+  console.log(obj);
 }
 ```
 

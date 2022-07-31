@@ -68,12 +68,14 @@ const plugin = (md, options) => {
 
         const data = jsYaml.load(yaml, 'utf8');
         log('data:', data);
-        md.objects.push(data);
 
         const templatePath = options.templateDir + path.sep + data[options.typeKey] + options.templateExtension;
         const template = fs.readFileSync(templatePath, 'utf8');
         const html = mustache.render(template, data);
         log('html:', html);
+
+        if (typeof state.env.objects === 'undefined') state.env.objects = [];
+        state.env.objects.push(data);
 
         state.line = nextLine + 1;
         const token = state.push(tokenType, 'div', 0);

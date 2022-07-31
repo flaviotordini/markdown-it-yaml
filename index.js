@@ -102,10 +102,6 @@ const plugin = (md, options) => {
 
     md.block.ruler.before('fence', tokenType, rule, { alt: [] });
 
-    md.core.ruler.before('normalize', 'reset_' + tokenType, (state) => {
-        log('Resetting objects');
-        state.md.objects = [];
-    });
 
     md.renderer.rules[tokenType] = (tokens, idx, options, env, slf) => {
         const token = tokens[idx];

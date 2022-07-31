@@ -84,6 +84,11 @@ md.use(require('markdown-it-yaml'), {
   markerEnd: '```',
   typeKey: 'type',
   templateExtension: '.html',
+  autoNumbering: false,
+  numberKey: 'number',
+  renderFunction: (template, data) {
+    return myFavoriteTemplateEngine(template, data);
+  },
   debug: false
 });
 

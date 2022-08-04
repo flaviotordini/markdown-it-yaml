@@ -78,6 +78,8 @@ function plugin(md, options) {
             return false;
         }
 
+        data.env = state.env;
+
         if (typeof state.env.objects === 'undefined') state.env.objects = [];
         state.env.objects.push(data);
 
@@ -86,6 +88,10 @@ function plugin(md, options) {
             const number = state.env._autoNumbers.get(typeName) + 1 || 1;
             data[options.numberKey] = number;
             state.env._autoNumbers.set(typeName, number);
+        }
+
+        if (typeof options.onObject === 'function') {
+            options.onObject(data);
         }
 
         state.line = nextLine + 1;
@@ -107,7 +113,6 @@ function plugin(md, options) {
     function render(tokens, idx, options, env, slf) {
         const token = tokens[idx];
         const data = token.content;
-        data.env = env;
         const pluginOptions = plugin.options;
         const typeName = data[pluginOptions.typeKey];
         const templatePath = pluginOptions.templateDir + path.sep + typeName + pluginOptions.templateExtension;

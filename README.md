@@ -60,9 +60,15 @@ By appending some other word after <code>```yaml</code> you can disable this plu
     this: won't get mustached
     ```
 
-## Object list
+## API
+
+### Object List
 
 An array of the parsed YAML blocks can be accessed at `env.objects` after the Markdown document has been processed. This can be useful to generate table of contents, statistics, export data, etc. See the Usage example below.
+
+### Object callback
+
+Specify a `onObject` callback in the options to be notified of each parsed YAML document. You can then modify it as you need. See the Usage example below.
 
 ## Install
 
@@ -73,6 +79,16 @@ $ npm install markdown-it-yaml
 ```
 
 ## Usage
+
+Minimal usage:
+
+```js
+const md = require('markdown-it')();
+md.use(require('markdown-it-yaml'), { templateDir: 'myDir' }
+const html = md.render(markdown, {});
+```
+
+Complete usage:
 
 ```js
 const md = require('markdown-it')();
@@ -88,6 +104,9 @@ md.use(require('markdown-it-yaml'), {
   numberKey: 'number',
   renderFunction: (template, data) => {
     return myFavoriteTemplateEngine(template, data);
+  },
+  onObject: (obj) => {
+    // do whatever you want with the data
   },
   debug: false
 });

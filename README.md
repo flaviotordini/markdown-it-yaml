@@ -102,8 +102,8 @@ md.use(require('markdown-it-yaml'), {
   templateExtension: '.html',
   autoNumbering: false,
   numberKey: 'number',
-  renderFunction: (template, data) => {
-    return myFavoriteTemplateEngine(template, data);
+  renderFunction: (template, obj) => {
+    return myFavoriteTemplateEngine(template, obj);
   },
   onObject: (obj) => {
     // do whatever you want with the data

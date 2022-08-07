@@ -102,7 +102,7 @@ md.use(require('markdown-it-yaml'), {
   templateExtension: '.html',
   autoNumbering: false,
   numberKey: 'number',
-  renderFunction: (template, obj) => {
+  render: (template, obj) => {
     return myFavoriteTemplateEngine(template, obj);
   },
   onObject: (obj) => {

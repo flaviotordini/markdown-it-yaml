@@ -14,7 +14,7 @@ function plugin(md, options) {
         templateExtension: '.html',
         autoNumbering: false,
         numberKey: 'number',
-        renderFunction: mustacheRender,
+        render: mustacheRender,
         debug: false
     };
 
@@ -117,7 +117,7 @@ function plugin(md, options) {
         const typeName = obj[pluginOptions.typeKey];
         const templatePath = pluginOptions.templateDir + path.sep + typeName + pluginOptions.templateExtension;
         const template = fs.readFileSync(templatePath, 'utf8');
-        return pluginOptions.renderFunction(template, obj);
+        return pluginOptions.render(template, obj);
     }
 
     md.renderer.rules[tokenType] = render;
